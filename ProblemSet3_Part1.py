@@ -32,4 +32,33 @@ data_list.append(user_item)
 for path in data_list:
     print(data_folder + "\\" + path)
 
-# %% Task 3 - 
+# %% Task 3 - Lists and Interation
+## PS3: Code Block 3
+
+# Create empty variable
+user_numbers = []
+
+# Iterate and add values to empty list
+for i in range(3):
+    num = input("Enter an integer:")
+    user_numbers.append(int(num))
+
+# Sort list and print highest value
+user_numbers.sort()
+print(user_numbers[2])
+
+# %% Task 3 - Challenge
+## PS3: Code Block 3 Challenge
+
+# Create empty variable
+user_numbers = []
+
+# Iterate and add values to empty list
+for i in range(3):
+    num = input("Enter an integer:")
+    user_numbers.append(int(num))
+
+# Sort list and print highest value
+user_numbers.sort(reverse = True)
+print(user_numbers)
+# %%
