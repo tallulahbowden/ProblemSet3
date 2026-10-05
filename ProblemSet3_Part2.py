@@ -53,7 +53,19 @@ for i in line_list[1:]:
     mmsi = value_list[mmsi_idx]
     
     #Extract the fleet value
-    fleet = value_list[name_idx]
+    fleet = value_list[fleet_idx]
     
     #Adds info to the vesselDict dictionary
     vessel_dict[mmsi] = fleet
+
+
+#%% Task 4.4 Using your dictionary
+
+# Create vessel ID variable
+vesselID = "312887000"
+
+# Lookup fleet name for this vessel ID
+vesselFleet = vessel_dict[vesselID]
+
+# Print statement
+print(f'Vessel # {vesselID} flies the flag of {vesselFleet}')
