@@ -69,3 +69,60 @@ vesselFleet = vessel_dict[vesselID]
 
 # Print statement
 print(f'Vessel # {vesselID} flies the flag of {vesselFleet}')
+
+
+#%% Task 5 Scripting Task
+
+#Create a Python file object to read the loitering file
+with open(file='data/raw/loitering_events_20180723.csv',mode='r') as file_obj:
+
+    #Read the entire contents into a list object
+    line_list2 = file_obj.readlines()
+
+#Save the contents of the first line in the list of lines to the variable "headerLineString"
+header_line2 = line_list2[0]
+
+#Print the contents of the headerLine
+print(header_line2)
+
+#Split the headerLineString into a list of header items
+header_items2 = header_line2.split(',')
+
+#List the index of the mmsi, shipname, and fleet_name values
+transship_mmsi_idx = header_items2.index("transshippment_mmsi")
+start_lat_idx = header_items2.index("starting_latitude")
+end_lat_idx = header_items2.index("ending_latitude")
+start_long_idx = header_items2.index("starting_longitude")
+end_long_idx = header_items2.index("ending_longitude")
+
+#Print the values
+print(transship_mmsi_idx, start_lat_idx, end_lat_idx, start_long_idx, end_long_idx)
+
+# Iterate through all lines (except the header) in the loitering data file
+for i in line_list2[1:]:
+    
+    #Split the data into values
+    value_list2 = i.split(',')
+    
+    #Extract the mmsi value
+    transship_mmsi = value_list2[transship_mmsi_idx]
+    
+    #Extract the starting latitude value
+    start_lat = value_list2[start_lat_idx]
+
+    #Extract the ending latitude value
+    end_lat = value_list2[end_lat_idx]
+
+    #Extract the starting longitude value
+    start_long = value_list2[start_long_idx]
+
+    #Extract the ending longitude value
+    end_long = value_list2[end_long_idx]
+
+    #Create boolean value for if lat crosses equator
+
+    #Create boolean value for if long ends between 120°E and 135°E
+
+    #If both true, print mmsi and fleet
+
+    #If no vessels meet criteria, print message
