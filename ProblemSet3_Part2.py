@@ -89,7 +89,7 @@ print(header_line2)
 header_items2 = header_line2.split(',')
 
 #List the index of the mmsi, shipname, and fleet_name values
-transship_mmsi_idx = header_items2.index("transshippment_mmsi")
+transship_mmsi_idx = header_items2.index("transshipment_mmsi")
 start_lat_idx = header_items2.index("starting_latitude")
 end_lat_idx = header_items2.index("ending_latitude")
 start_long_idx = header_items2.index("starting_longitude")
@@ -97,6 +97,9 @@ end_long_idx = header_items2.index("ending_longitude")
 
 #Print the values
 print(transship_mmsi_idx, start_lat_idx, end_lat_idx, start_long_idx, end_long_idx)
+
+#Create a variable to keep count of vessels that qualify
+vesselCount = 0
 
 # Iterate through all lines (except the header) in the loitering data file
 for i in line_list2[1:]:
@@ -108,21 +111,36 @@ for i in line_list2[1:]:
     transship_mmsi = value_list2[transship_mmsi_idx]
     
     #Extract the starting latitude value
-    start_lat = value_list2[start_lat_idx]
+    start_lat = float(value_list2[start_lat_idx])
 
     #Extract the ending latitude value
-    end_lat = value_list2[end_lat_idx]
+    end_lat = float(value_list2[end_lat_idx])
 
     #Extract the starting longitude value
-    start_long = value_list2[start_long_idx]
+    start_long = float(value_list2[start_long_idx])
 
     #Extract the ending longitude value
-    end_long = value_list2[end_long_idx]
+    end_long = float(value_list2[end_long_idx])
 
     #Create boolean value for if lat crosses equator
+    latBool = (start_lat < 0) & (end_lat > 0)
 
     #Create boolean value for if long ends between 120°E and 135°E
+    longEndBool = (120 <= end_long) & (end_long <= 135)
+
+    #Create boolean value for if long starts between 145°E to 155°E
+    longStartBool = (145 <= start_long) & (start_long <= 155)
 
     #If both true, print mmsi and fleet
+    if latBool & longEndBool:
+        print("Crosses equator (S to N) and ends between 120°E and 135°E longitude:")
+        print(f'Vessel # {transship_mmsi} flies the flag of {vessel_dict[transship_mmsi]} \n')
+        vesselCount += 1
+    elif latBool & longStartBool:
+        print("Crosses equator (S to N) and starts between 145°E and 155°E longitude:")
+        print(f'Vessel # {transship_mmsi} flies the flag of {vessel_dict[transship_mmsi]} \n')
+        vesselCount += 1
 
-    #If no vessels meet criteria, print message
+
+if vesselCount == 0:
+    print("No vessels met criteria")
