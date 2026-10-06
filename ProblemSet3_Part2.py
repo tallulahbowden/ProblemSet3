@@ -101,6 +101,10 @@ print(transship_mmsi_idx, start_lat_idx, end_lat_idx, start_long_idx, end_long_i
 #Create a variable to keep count of vessels that qualify
 vesselCount = 0
 
+#Create two lists to hold information for each transshipment
+transship_list1 = ["Crosses equator (S to N) and ends between 120°E and 135°E longitude:"]
+transship_list2 = ["Crosses equator (S to N) and starts between 145°E and 155°E longitude:"]
+
 # Iterate through all lines (except the header) in the loitering data file
 for i in line_list2[1:]:
     
@@ -133,14 +137,20 @@ for i in line_list2[1:]:
 
     #If both true, print mmsi and fleet
     if latBool & longEndBool:
-        print("Crosses equator (S to N) and ends between 120°E and 135°E longitude:")
-        print(f'Vessel # {transship_mmsi} flies the flag of {vessel_dict[transship_mmsi]} \n')
+        transship_list1.append(f'Vessel # {transship_mmsi} flies the flag of {vessel_dict[transship_mmsi]}')
         vesselCount += 1
     elif latBool & longStartBool:
-        print("Crosses equator (S to N) and starts between 145°E and 155°E longitude:")
-        print(f'Vessel # {transship_mmsi} flies the flag of {vessel_dict[transship_mmsi]} \n')
+        transship_list2.append(f'Vessel # {transship_mmsi} flies the flag of {vessel_dict[transship_mmsi]}')
         vesselCount += 1
 
-
+# Print final statements on relevant vessels
 if vesselCount == 0:
     print("No vessels met criteria")
+if len(transship_list1) > 1:
+    for i in transship_list1:
+        print(i)
+    print('\n')
+if len(transship_list2) > 1:
+    for i in transship_list2:
+        print(i)
+    print('\n')
