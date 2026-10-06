@@ -139,7 +139,7 @@ for i in line_list2[1:]:
     if latBool & longEndBool:
         transship_list1.append(f'Vessel # {transship_mmsi} flies the flag of {vessel_dict[transship_mmsi]}')
         vesselCount += 1
-    elif latBool & longStartBool:
+    if latBool & longStartBool:
         transship_list2.append(f'Vessel # {transship_mmsi} flies the flag of {vessel_dict[transship_mmsi]}')
         vesselCount += 1
 
